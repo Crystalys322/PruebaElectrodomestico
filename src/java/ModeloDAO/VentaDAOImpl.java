@@ -27,7 +27,7 @@ public class VentaDAOImpl implements VentaDAO {
 
     @Override
     public boolean registrarVenta(Venta venta, List<DetalleVenta> detalles) {
-        try (Connection cn = conexion.getConexion()) {
+        try (Connection cn = conexion.getConnection()) {
             cn.setAutoCommit(false);
             try (PreparedStatement psVenta = cn.prepareStatement(SQL_INSERTAR_VENTA, Statement.RETURN_GENERATED_KEYS)) {
                 psVenta.setInt(1, venta.getIdCliente());
@@ -62,7 +62,7 @@ public class VentaDAOImpl implements VentaDAO {
 
     @Override
     public Venta obtenerPorId(int idVenta) {
-        try (Connection cn = conexion.getConexion();
+        try (Connection cn = conexion.getConnection();
              PreparedStatement ps = cn.prepareStatement(SQL_OBTENER_VENTA)) {
             ps.setInt(1, idVenta);
             try (ResultSet rs = ps.executeQuery()) {

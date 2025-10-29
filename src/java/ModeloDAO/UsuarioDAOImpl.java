@@ -20,7 +20,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
     @Override
     public Usuario validarAcceso(String usuario, String clave) {
-        try (Connection cn = conexion.getConexion();
+        try (Connection cn = conexion.getConnection();
              PreparedStatement ps = cn.prepareStatement(SQL_VALIDAR)) {
             ps.setString(1, usuario);
             ps.setString(2, clave);
@@ -28,7 +28,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 if (rs.next()) {
                     Usuario u = new Usuario();
                     u.setIdUsuario(rs.getInt("idUsuario"));
-                    u.setUsuario(rs.getString("usuario"));
+                    u.setNombreUsuario(rs.getString("usuario"));
                     u.setClave(rs.getString("clave"));
                     u.setRol(rs.getString("rol"));
                     u.setEstado(rs.getString("estado"));

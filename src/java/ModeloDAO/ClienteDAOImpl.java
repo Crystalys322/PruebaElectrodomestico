@@ -26,7 +26,7 @@ public class ClienteDAOImpl implements ClienteDAO {
     @Override
     public List<Cliente> listar() {
         List<Cliente> clientes = new ArrayList<>();
-        try (Connection cn = conexion.getConexion();
+        try (Connection cn = conexion.getConnection();
              PreparedStatement ps = cn.prepareStatement(SQL_LISTAR);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
@@ -40,7 +40,7 @@ public class ClienteDAOImpl implements ClienteDAO {
 
     @Override
     public Cliente obtenerPorId(int idCliente) {
-        try (Connection cn = conexion.getConexion();
+        try (Connection cn = conexion.getConnection();
              PreparedStatement ps = cn.prepareStatement(SQL_BUSCAR_ID)) {
             ps.setInt(1, idCliente);
             try (ResultSet rs = ps.executeQuery()) {
@@ -56,7 +56,7 @@ public class ClienteDAOImpl implements ClienteDAO {
 
     @Override
     public boolean registrar(Cliente cliente) {
-        try (Connection cn = conexion.getConexion();
+        try (Connection cn = conexion.getConnection();
              PreparedStatement ps = cn.prepareStatement(SQL_INSERTAR)) {
             ps.setString(1, cliente.getNombres());
             ps.setString(2, cliente.getApellidos());
@@ -72,7 +72,7 @@ public class ClienteDAOImpl implements ClienteDAO {
 
     @Override
     public boolean actualizar(Cliente cliente) {
-        try (Connection cn = conexion.getConexion();
+        try (Connection cn = conexion.getConnection();
              PreparedStatement ps = cn.prepareStatement(SQL_ACTUALIZAR)) {
             ps.setString(1, cliente.getNombres());
             ps.setString(2, cliente.getApellidos());
